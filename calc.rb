@@ -1,6 +1,7 @@
 require_relative 'expression'
 require_relative 'operator'
 require_relative 'operand'
+require_relative 'types/vector'
 
 class Calc
 
@@ -9,8 +10,8 @@ class Calc
   end
 
   def self.from_expression(lhs, operator, rhs)
-    lhs_object = Operand.lhs
-    rhs_object = OperandFactory.operand_for_value rhs
+    lhs_object = Operand.new lhs
+    rhs_object = Operand.new rhs
     operator_object = Operator.new lhs_object, operator, rhs_object
     self.new operator_object
   end
@@ -24,6 +25,12 @@ class Calc
   end
 
 end
+
+
+v0 = Vector.new([2, 1])
+v1 = Vector.new([1, 2])
+v2 = v0 + v1
+v2.to_s
 
 # 4.5
 p Calc.from_expression(2, :+, 2.5).evaluate
