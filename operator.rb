@@ -1,5 +1,5 @@
-# what difference between single quote vs doublequite?
 require_relative 'expression'
+require_relative 'operation'
 
 class Operator < Expression
 
@@ -10,22 +10,17 @@ class Operator < Expression
   end
 
   def evaluate
-    case @type
-      when :+
-        return @lhs.evaluate + @rhs.evaluate
+    lhs_value = @lhs.evaluate
+    rhs_evaluate = @rhs.evaluate
 
-      when :-
-        return @lhs.evaluate - @rhs.evaluate
+    operation = OperationFactory.operation_for_values lhs_value, rhs_evaluate, @type
 
-      when :*
-        return @lhs.evaluate * @rhs.evaluate
-
-      when :/
-        return @lhs.evaluate / @rhs.evaluate
-
-      else
-        raise ArgumentError.new "Unsupported operator: #{@type}. Use +, -, *, / instead."
+    if operation != nil
+      operation.evaluate
+    else
+      raise Exception.new "Can not handle #{@type} for #{@lhs} and #{@rhs}"
     end
+
   end
 
   def to_s

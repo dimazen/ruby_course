@@ -1,6 +1,6 @@
 require_relative 'expression'
 
-class Operand < Expression
+class ConstExpression < Expression
   attr_reader :value
 
   def initialize(value)

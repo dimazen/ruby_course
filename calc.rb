@@ -1,6 +1,6 @@
 require_relative 'expression'
 require_relative 'operator'
-require_relative 'operand'
+require_relative 'const_expression'
 require_relative 'types/vector'
 
 class Calc
@@ -10,8 +10,8 @@ class Calc
   end
 
   def self.from_expression(lhs, operator, rhs)
-    lhs_object = Operand.new lhs
-    rhs_object = Operand.new rhs
+    lhs_object = ConstExpression.new lhs
+    rhs_object = ConstExpression.new rhs
     operator_object = Operator.new lhs_object, operator, rhs_object
     self.new operator_object
   end
@@ -27,7 +27,8 @@ class Calc
 end
 
 
-v0 = Vector.new([2, 1])
+p Operator.new(ConstExpression.new(Vector.new([2, 1])), :*, ConstExpression.new(2)).evaluate
+
 v1 = Vector.new([1, 2])
 v2 = v0 + v1
 v2.to_s
@@ -36,8 +37,8 @@ v2.to_s
 p Calc.from_expression(2, :+, 2.5).evaluate
 
 # 3*2 + 4*(8+9)
-a = Operator.new(Operand.new(3), :*, Operand.new(2))
-b = Operator.new(Operand.new(4), :*, Operator.new(Operand.new(8), :+, Operand.new(9)))
+a = Operator.new(ConstExpression.new(3), :*, ConstExpression.new(2))
+b = Operator.new(ConstExpression.new(4), :*, Operator.new(ConstExpression.new(8), :+, ConstExpression.new(9)))
 expression = Operator.new(a, :+, b)
 
 p expression.to_s

@@ -41,6 +41,4 @@ class Vector
     end
   end
 
-
-
 end
