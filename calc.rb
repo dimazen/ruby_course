@@ -9,7 +9,7 @@ class Calc
   end
 
   def self.from_expression(lhs, operator, rhs)
-    lhs_object = OperandFactory.operand_for_value lhs
+    lhs_object = Operand.lhs
     rhs_object = OperandFactory.operand_for_value rhs
     operator_object = Operator.new lhs_object, operator, rhs_object
     self.new operator_object
