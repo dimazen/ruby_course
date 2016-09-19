@@ -10,10 +10,7 @@ class Calc
   end
 
   def self.from_expression(lhs, operator, rhs)
-    lhs_object = ConstExpression.new lhs
-    rhs_object = ConstExpression.new rhs
-    operator_object = Operator.new lhs_object, operator, rhs_object
-    self.new operator_object
+    self.new Operator.new(ConstExpression.new(lhs), operator, ConstExpression.new(rhs))
   end
 
   def evaluate
