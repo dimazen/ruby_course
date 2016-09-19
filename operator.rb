@@ -11,9 +11,9 @@ class Operator < Expression
 
   def evaluate
     lhs_value = @lhs.evaluate
-    rhs_evaluate = @rhs.evaluate
+    rhs_value = @rhs.evaluate
 
-    operation = OperationFactory.operation_for_values lhs_value, rhs_evaluate, @type
+    operation = OperationFactory.operation_for_values lhs_value, rhs_value, @type
 
     if operation != nil
       operation.evaluate
